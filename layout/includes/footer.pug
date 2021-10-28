@@ -13,5 +13,13 @@
       span.footer-separator |
       span= _p('footer.theme') + ' '
       a(href='https://github.com/jerryc127/hexo-theme-butterfly')= 'Butterfly'
+  if theme.footer.beian
+    .beian-info
+      a(href='http://beian.miit.gov.cn')= `${theme.footer.beian}`
+  if theme.badge.enable
+    .badge-line
+    each item in theme.badge.badgeitem
+      a(target='_blank' href=url_for(item.link)  style='margin-inline:5px')
+        img(src=url_for(item.shields) title=item.massage)
   if theme.footer.custom_text
     .footer_custom_text!=`${theme.footer.custom_text}`
