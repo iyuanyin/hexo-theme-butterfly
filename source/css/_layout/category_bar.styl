@@ -1,0 +1,100 @@
+if hexo-config('category_bar.enable')
+  #category_bar
+    width 100%!important
+  ul
+    &.category_bar-list
+      margin 5px 5px 0 5px!important
+      padding 0!important
+
+  li
+    &.category_bar-list-item
+      font-weight bold
+      display inline-block
+      height 180px!important
+      margin 5px .5% 0 .5%!important
+      background-image linear-gradient(rgba(0, 0, 0, 0.4) 25%, rgba(16, 16, 16, 0) 100%)
+      border-radius 10px
+      padding 25px 0 25px 25px!important
+      box-shadow rgba(50, 50, 50, 0.3)  50px 50px 50px 50px inset
+      overflow hidden
+      background-size 100%!important
+      background-position center!important
+      &:hover
+        background-size 110%!important
+        box-shadow inset 500px 50px 50px 50px rgba(50,50,50, 0.6)
+        span
+          &.category_bar-list-count
+            &::after
+              transition all .5s
+              transform translate(-100%, 0)
+  a
+    &.category_bar-list-link
+      color white!important
+      font-size 20px!important
+      &::before
+        content '|'!important
+        color white!important
+        font-size 20px!important
+      &:after
+        content ''
+        position relative
+        width 0
+        bottom 0
+        display block
+        height 3px
+        border-radius 3px
+        background-color white
+      &:hover
+        &:after
+          width 90%
+          left 1%
+          transition all 0.5s
+
+  span
+    &.category_bar-list-count
+      display block!important
+      color white!important
+      font-size 20px!important
+      &::before
+        content '\f02d'!important
+        padding-right 15px!important
+        @extend .fontawesomeIcon
+      &::after
+        padding 5px
+        display block!important
+        color white!important
+        font-size 20px!important
+        position relative
+        right -100%
+  covers = hexo-config('category_bar.cover')
+  for cover,i in covers
+    li.category_bar-list-item:nth-child({i+1})
+      background unquote(cover)
+  descrs = hexo-config('category_bar.descr')
+  for descr,i in descrs
+    li.category_bar-list-item:nth-child({i+1})>span::after
+      content descr!important
+  if hexo-config('category_bar.column') == 'odd'
+    li
+      &.category_bar-list-item
+        width 32.3%!important
+  else if hexo-config('category_bar.column') == 'even'
+    li
+      &.category_bar-list-item
+        width 24%!important
+  @media screen and (max-width: 650px)
+    li
+      &.category_bar-list-item
+        width 48%!important
+        height 150px!important
+        margin 5px 1% 0 1%!important
+
+  $caterow =  hexo-config('category_bar.row')?hexo-config('category_bar.row'):2
+  .category_bar-list
+    max-height 190px * $caterow
+    overflow auto
+    &::-webkit-scrollbar
+      width 0!important
+  @media screen and (max-width: 650px)
+    .category_bar-list
+      max-height 160px * $caterow
